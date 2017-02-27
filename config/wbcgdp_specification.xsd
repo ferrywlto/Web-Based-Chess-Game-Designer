@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" version="1.0">
+  <xsd:element name="chess" type="chess">
+    <xsd:unique name="ruleName">
+      <xsd:selector xpath="rule"/>
+      <xsd:field xpath="name"/>
+    </xsd:unique>
+    <xsd:unique name="objectName">
+      <xsd:selector xpath="object"/>
+      <xsd:field xpath="name"/>
+    </xsd:unique>
+    <xsd:unique name="objectTypeName">
+      <xsd:selector xpath="objectType"/>
+      <xsd:field xpath="name"/>
+    </xsd:unique>
+    <xsd:unique name="objectAttributeTypeName">
+      <xsd:selector xpath="objectAttributeType"/>
+      <xsd:field xpath="name"/>
+    </xsd:unique>
+    <xsd:unique name="regionName">
+      <xsd:selector xpath="region"/>
+      <xsd:field xpath="name"/>
+    </xsd:unique>
+    <xsd:unique name="tileName">
+      <xsd:selector xpath="tile"/>
+      <xsd:field xpath="name"/>
+    </xsd:unique>
+    <xsd:unique name="regionTypeName">
+      <xsd:selector xpath="regionType"/>
+      <xsd:field xpath="name"/>
+    </xsd:unique>
+    <xsd:unique name="graphicURI">
+      <xsd:selector xpath="graphic"/>
+      <xsd:field xpath="fileURI"/>
+    </xsd:unique>
+  </xsd:element>
+  <xsd:complexType name="chess">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1" name="map" type="map"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="regionType" type="regionType"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="region" type="region"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="objectAttributeType" type="objectAttributeType"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="objectType" type="objectType"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="1" name="object" type="object"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="1" name="rule" type="rule"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="graphic" type="graphic"/>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string" use="required"/>
+    <xsd:attribute name="playerNum" type="playerNumType" use="required"/>
+    <xsd:attribute name="turnCheck" type="xsd:string" use="required"/>
+    </xsd:complexType> 
+  <xsd:simpleType name="playerNumType">    
+    <xsd:restriction base="xsd:int">     
+      <xsd:minInclusive value="2"/>      
+      <xsd:maxInclusive value="6"/>     
+    </xsd:restriction>    
+  </xsd:simpleType>  
+  <xsd:complexType name="rule">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="1" name="ruleComponent" type="ruleComponent"/>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  <xsd:complexType name="ruleComponent">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="condition" type="condition"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="1" name="action" type="action"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="action">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="param" type="xsd:string"/>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:int" use="required"/>
+  </xsd:complexType>
+  <xsd:complexType name="condition">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="param" type="xsd:string"/>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:int" use="required"/>
+  </xsd:complexType>
+  <xsd:complexType name="object">
+    <xsd:attribute name="type" type="xsd:string" use="required"/>
+    <xsd:attribute name="name" type="xsd:string" use="required"/>
+    <xsd:attribute name="location" type="xsd:string" use="required"/>
+    <xsd:attribute name="owner" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  <xsd:complexType name="objectType">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="objectAttribute" type="objectAttribute"/>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string" use="required"/>
+    <xsd:attribute name="preMove" type="xsd:string" use="required"/>
+    <xsd:attribute name="postMove" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  <xsd:complexType name="objectAttributeType">
+    <xsd:attribute name="name" type="xsd:string" use="required"/>
+    <xsd:attribute name="type" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  <xsd:complexType name="objectAttribute">
+    <xsd:attribute name="type" type="xsd:string" use="required"/>
+    <xsd:attribute name="value" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  <xsd:complexType name="region">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="1" name="tile" type="tile"/>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string" use="required"/>
+    <xsd:attribute name="owner" type="xsd:string" use="required"/>
+    <xsd:attribute name="type" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  <xsd:complexType name="tile">
+    <xsd:attribute name="name" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  <xsd:complexType name="regionType">
+    <xsd:attribute name="name" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  <xsd:complexType name="map">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="1" name="param" type="xsd:string"/>
+    </xsd:sequence>
+    <xsd:attribute name="type" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  <xsd:complexType name="graphic">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="graphicEntry" type="graphicEntry"/>
+    </xsd:sequence>
+    <xsd:attribute name="fileURI" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  <xsd:complexType name="graphicEntry">
+    <xsd:attribute name="type" type="xsd:string" use="required"/>
+    <xsd:attribute name="target" type="xsd:string" use="required"/>
+  </xsd:complexType>
+</xsd:schema>

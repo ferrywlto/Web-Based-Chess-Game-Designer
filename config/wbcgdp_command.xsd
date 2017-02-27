@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" version="1.0">
+
+  <xsd:simpleType name="eightCharString">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="([a-zA-Z0-9])+"/>
+      <xsd:maxLength value="8"/>
+      <xsd:minLength value="1"/>
+    </xsd:restriction> 
+  </xsd:simpleType> 
+ 
+  <xsd:complexType name="loginRequest">
+    <xsd:sequence>
+      <xsd:element name="username" type="eightCharString"/>
+      <xsd:element name="password" type="eightCharString"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="listChessRequest"/>
+  <xsd:complexType name="listGameRequest"/>
+  <xsd:complexType name="createGameRequest">
+    <xsd:sequence>
+      <xsd:element name="chessName" type="xsd:string"/>
+      <xsd:element name="gameName" type="xsd:string"/>
+      <xsd:element name="gameDesc" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="joinGameRequest">
+    <xsd:sequence>
+      <xsd:element name="gameID" type="xsd:integer"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="quitGameRequest"/>
+  <xsd:complexType name="disconnectRequest"/>
+  <xsd:complexType name="gameCommand">
+    <xsd:sequence>
+      <xsd:element name="type">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="preMove"/>
+            <xsd:enumeration value="postMove"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="param" type="xsd:string"/>
+
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="wbcgdp_command">
+    <xsd:choice>
+      <xsd:element name="loginRequest" type="loginRequest"/>
+      <xsd:element name="listChessRequest" type="listChessRequest"/>
+      <xsd:element name="listGameRequest" type="listGameRequest"/>
+      <xsd:element name="createGameRequest" type="createGameRequest"/>
+      <xsd:element name="joinGameRequest" type="joinGameRequest"/>
+      <xsd:element name="quitGameRequest" type="quitGameRequest"/>
+      <xsd:element name="disconnectRequest" type="disconnectRequest"/>
+      <xsd:element name="gameCommand" type="gameCommand"/>
+    </xsd:choice>
+  </xsd:complexType>
+  <xsd:element name="wbcgdp_command" type="wbcgdp_command"/>
+
+</xsd:schema>
