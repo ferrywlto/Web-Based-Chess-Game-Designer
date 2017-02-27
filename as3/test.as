@@ -12,13 +12,13 @@ xml.onLoad = function(success:Boolean)
 	if(success)
 	{
 		trace("talking to server...");
-		xml = new XML("<designInterfaceRequest user='ferry' password='subai'>"+xml.toString()+"<description>testing haha 1</description></designInterfaceRequest>");
+		xml = new XML("<designInterfaceRequest user='' password=''>"+xml.toString()+"<description>testing haha 1</description></designInterfaceRequest>");
 		//trace(xml);
-		xml.sendAndLoad("http://127.0.0.1/WebBasedChessGameDesigner/servlet/SpecificationReceiver",xmlR);
+		xml.sendAndLoad("http://localhost/WebBasedChessGameDesigner/servlet/SpecificationReceiver",xmlR);
 	}
 	else
 	{
-		trace("fuck");
+		trace("fail");
 	}
 }
 
@@ -29,7 +29,6 @@ xmlR.onLoad = function(success:Boolean)
 	if(success)
 	{
 		trace("this:"+this);
-		//trace("xmLR:"+xmlR);
 		var statusStr:String = this.firstChild.childNodes[0].firstChild.toString();
 		var msg:String =  this.firstChild.childNodes[1].firstChild.toString();
 		if(statusStr == "true");
@@ -39,13 +38,13 @@ xmlR.onLoad = function(success:Boolean)
 	}
 	else
 	{
-		trace("diu");
+		trace("fail");
 	}
 }
 
 xml.load("../repository/real2.xml",xml);
 /**  Sample XML content from Flash client's HTTP request 
-<designInterfaceRequest user="ferry" password="subai">
+<designInterfaceRequest user="" password="">
 <chess name="Animal Chess Emulation" playerNum="2" turnCheck="catGameTurn">
 <map type="grid"><param>7</param><param>7</param></map>
 <regionType name="water" />
