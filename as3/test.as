@@ -1,6 +1,6 @@
 import  mx.controls.Alert;
 
-var xmlStr:String = "<designInterfaceRequest user='ferry' password='subai'>";
+var xmlStr:String = "<designInterfaceRequest user='' password=''>";
 xmlStr += "<chess name='Animal Chess Emulation' playerNum='2' turnCheck='catGameTurn'>";
 xmlStr += "<map type='grid'><param>7</param><param>7</param></map></chess>";
 xmlStr += "<description>testing haha 1</description></designInterfaceRequest>";
